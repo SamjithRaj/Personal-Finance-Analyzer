@@ -3,6 +3,7 @@
 #include<fstream>
 
 std::vector<Transaction> transactions; 
+int nextTransactionID = 1; 
 
 void loadTransactions(){
     transactions.clear(); 
@@ -10,8 +11,11 @@ void loadTransactions(){
 
 }
 
-void saveTransaction(Transaction& transaction){
-
+void saveTransaction(Transaction& txn){
+    std::ofstream file; 
+    file.open("transactions.csv", std::ios::app);
+    file << txn.transactionID << "," << txn.Category << "," << txn.Amount << "," << txn.Date << "," << (txn.IsIncome ? "Y" : "N") << std::endl; 
+    file.close(); 
 }
 
 
@@ -19,6 +23,7 @@ void saveTransaction(Transaction& transaction){
 void addTransaction(){
     Transaction transaction; 
     std::cin.ignore(); 
+    transaction.transactionID = nextTransactionID++; 
     std::cout << "Enter category :" << std::endl; 
     std::getline(std::cin, transaction.Category); 
     std::cout << "Enter amount :" << std::endl; 
@@ -54,6 +59,7 @@ void viewTransactions(){
     }
 
     for(const auto& transaction : transactions){
+        std::cout << "Transaction ID: " << transaction.transactionID << std::endl; 
         std::cout << "Category: " << transaction.Category << std::endl; 
         std::cout << "Amount: " << transaction.Amount << std::endl; 
         std::cout << "Date: " << transaction.Date << std::endl; 
