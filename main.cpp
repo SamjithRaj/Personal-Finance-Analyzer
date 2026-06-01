@@ -1,21 +1,26 @@
 #include "Transaction.h"
 #include<iostream> 
-
-void loadTransactions(){
-
-}
-
-void saveTransaction(){
-
-}
-
+#include<fstream>
 
 std::vector<Transaction> transactions; 
 
+void loadTransactions(){
+    transactions.clear(); 
+
+
+}
+
+void saveTransaction(Transaction& transaction){
+
+}
+
+
+
 void addTransaction(){
     Transaction transaction; 
+    std::cin.ignore(); 
     std::cout << "Enter category :" << std::endl; 
-    std::cin >> transaction.Category; 
+    std::getline(std::cin, transaction.Category); 
     std::cout << "Enter amount :" << std::endl; 
     std::cin >> transaction.Amount; 
     if(transaction.Amount < 0){
@@ -39,7 +44,7 @@ void addTransaction(){
     }
 
     transactions.push_back(transaction); 
-    saveTransaction(); 
+    saveTransaction(transaction); 
 }
 
 void viewTransactions(){
@@ -48,7 +53,7 @@ void viewTransactions(){
         return; 
     }
 
-    for(auto transaction : transactions){
+    for(const auto& transaction : transactions){
         std::cout << "Category: " << transaction.Category << std::endl; 
         std::cout << "Amount: " << transaction.Amount << std::endl; 
         std::cout << "Date: " << transaction.Date << std::endl; 
@@ -63,7 +68,7 @@ void showFinancialSummary(){
     }
     double totalIncome = 0; 
     double totalExpense = 0; 
-    for(auto transaction : transactions){
+    for(const auto& transaction : transactions){
         if(transaction.IsIncome){
             totalIncome += transaction.Amount; 
         }
@@ -79,6 +84,7 @@ void showFinancialSummary(){
 
 
 int main(){
+    loadTransactions(); 
     std::cout << "Personal Financial Analyzer V0.1" << std::endl; 
     std::cout << "*********************************" << std::endl; 
     int choice = 100; 
