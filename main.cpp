@@ -1,6 +1,15 @@
 #include "Transaction.h"
 #include<iostream> 
 
+void loadTransactions(){
+
+}
+
+void saveTransaction(){
+
+}
+
+
 std::vector<Transaction> transactions; 
 
 void addTransaction(){
@@ -30,6 +39,7 @@ void addTransaction(){
     }
 
     transactions.push_back(transaction); 
+    saveTransaction(); 
 }
 
 void viewTransactions(){
@@ -46,19 +56,40 @@ void viewTransactions(){
     }
 }   
 
+void showFinancialSummary(){
+    if(transactions.size() == 0){
+        std::cout << "No completed transactions exist";
+        return; 
+    }
+    double totalIncome = 0; 
+    double totalExpense = 0; 
+    for(auto transaction : transactions){
+        if(transaction.IsIncome){
+            totalIncome += transaction.Amount; 
+        }
+        else{
+            totalExpense += transaction.Amount; 
+        }
+    }
+    std::cout << "Total Income: " << totalIncome << std::endl;
+    std::cout << "Total Expense: " << totalExpense << std::endl; 
+    std::cout << "Balance: " << totalIncome - totalExpense << std::endl; 
+}
+
 
 
 int main(){
     std::cout << "Personal Financial Analyzer V0.1" << std::endl; 
     std::cout << "*********************************" << std::endl; 
-    int choice = 0; 
+    int choice = 100; 
  
-while(choice!=3){
+while(choice!=0){
     std::cout << "Choose one of the options below: " << std::endl; 
 
     std::cout << "1. View Transactions" << std::endl; 
     std::cout << "2. Add Transaction" << std::endl; 
-    std::cout << "3. Exit" << std::endl;  
+    std::cout << "3. View Financial Summary" << std::endl; 
+    std::cout << "0. Exit" << std::endl;  
     std::cin >> choice;
     switch(choice){
         case 1: 
@@ -68,6 +99,9 @@ while(choice!=3){
             addTransaction(); 
             break; 
         case 3: 
+            showFinancialSummary(); 
+            break; 
+        case 0: 
             std::cout << "Exiting now....";
             exit(0); 
             break; 
