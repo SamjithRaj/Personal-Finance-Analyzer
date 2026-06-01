@@ -7,6 +7,14 @@ int nextTransactionID = 1;
 
 void loadTransactions(){
     transactions.clear(); 
+    std::string line; 
+    std::ifstream file ("transactions.csv"); 
+    if(file.is_open()){
+        while(getline(file, line)){
+            std::cout << line << std::endl; 
+        }
+    }
+
 
 
 }
