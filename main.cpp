@@ -77,7 +77,7 @@ void viewTransactions(){
 
 void showFinancialSummary(){
     if(transactions.size() == 0){
-        std::cout << "No completed transactions exist";
+        std::cout << "No completed transactions exist" << std::endl;
         return; 
     }
     double totalIncome = 0; 
